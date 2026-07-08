@@ -1,0 +1,7 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+nano.*.save
+build_site.py.bak
+cron.log
