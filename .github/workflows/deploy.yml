@@ -31,6 +31,7 @@ jobs:
 
       - name: Build site
         run: |
+          pip install Pillow
           python build_site.py
 
       - name: Setup Pages
