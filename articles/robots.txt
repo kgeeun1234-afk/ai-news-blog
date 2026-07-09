@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: http://127.0.0.1:8000/articles/sitemap.xml
+Sitemap: https://kgeeun1234-afk.github.io/ai-news-blog/sitemap.xml
