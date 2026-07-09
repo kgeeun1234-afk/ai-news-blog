@@ -8,6 +8,7 @@ ARTICLES = BASE / "articles"
 SITE_TITLE = "AI 뉴스 블로그"
 SITE_URL = "http://127.0.0.1:8000/articles"
 SITE_DESCRIPTION = "AI 뉴스와 생성형 AI 트렌드를 자동으로 정리하는 뉴스 블로그"
+GOOGLE_SITE_VERIFICATION = "e1hYipw5-poqCtw-1dqegl9XVNq-MH-S0lbprYt_hDU"
 DEFAULT_THUMBNAIL = "ai-thumbnail.svg"
 
 EXCLUDE_FROM_INDEX = {
@@ -189,6 +190,7 @@ def render_head(title, description, url, og_type="article", robots="index,follow
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{html.escape(title)}</title>
+<meta name="google-site-verification" content="{GOOGLE_SITE_VERIFICATION}">
 {meta_tags(title, description, url, og_type, robots)}
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="style.css">
