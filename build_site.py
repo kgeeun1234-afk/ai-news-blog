@@ -10,7 +10,6 @@ SITE_TITLE = "AI 뉴스 블로그"
 SITE_URL = "https://kgeeun1234-afk.github.io/ai-news-blog"
 SITE_DESCRIPTION = "AI 뉴스와 생성형 AI 트렌드를 자동으로 정리하는 뉴스 블로그"
 GOOGLE_SITE_VERIFICATION = "e1hYipw5-poqCtw-1dqegl9XVNq-MH-S0lbprYt_hDU"
-DEFAULT_THUMBNAIL = "ai-thumbnail.svg"
 
 EXCLUDE_FROM_INDEX = {
     "index.html",
@@ -41,33 +40,6 @@ def get_date(filename):
     return m.group(1) if m else ""
 
 
-def write_default_thumbnail():
-    (ARTICLES / DEFAULT_THUMBNAIL).write_text(
-        """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" role="img" aria-label="AI 뉴스">
-<defs>
-  <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-    <stop offset="0%" stop-color="#111827"/>
-    <stop offset="100%" stop-color="#2563eb"/>
-  </linearGradient>
-</defs>
-<rect width="800" height="420" fill="url(#bg)"/>
-<circle cx="400" cy="170" r="70" fill="none" stroke="#93c5fd" stroke-width="4"/>
-<circle cx="400" cy="170" r="28" fill="#dbeafe"/>
-<line x1="400" y1="100" x2="400" y2="60" stroke="#bfdbfe" stroke-width="4"/>
-<line x1="470" y1="170" x2="510" y2="170" stroke="#bfdbfe" stroke-width="4"/>
-<line x1="330" y1="170" x2="290" y2="170" stroke="#bfdbfe" stroke-width="4"/>
-<line x1="450" y1="120" x2="480" y2="95" stroke="#bfdbfe" stroke-width="4"/>
-<line x1="350" y1="120" x2="320" y2="95" stroke="#bfdbfe" stroke-width="4"/>
-<line x1="450" y1="220" x2="480" y2="245" stroke="#bfdbfe" stroke-width="4"/>
-<line x1="350" y1="220" x2="320" y2="245" stroke="#bfdbfe" stroke-width="4"/>
-<text x="400" y="320" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="42" font-weight="700">AI NEWS</text>
-<text x="400" y="365" text-anchor="middle" fill="#dbeafe" font-family="Arial, sans-serif" font-size="24">인공지능 뉴스 요약</text>
-</svg>
-""",
-        encoding="utf-8",
-    )
-
-
 def extract_summary(article_path):
     md_path = article_path.with_suffix(".md")
     if md_path.exists():
@@ -88,50 +60,6 @@ def extract_summary(article_path):
                 return line
 
     return f"{clean_title(article_path.name)}에 관한 AI 뉴스 요약입니다."
-
-
-def thumbnail_for_title(title):
-    t = title.lower()
-
-    if "chatgpt" in t:
-        return "thumb-chatgpt.svg"
-    elif "gemini" in t:
-        return "thumb-gemini.svg"
-    elif "openai" in t:
-        return "thumb-openai.svg"
-    elif "claude" in t or "anthropic" in t:
-        return "thumb-claude.svg"
-    elif "microsoft" in t:
-        return "thumb-microsoft.svg"
-    else:
-        return DEFAULT_THUMBNAIL
-
-
-def write_branded_thumbnail(filename, color_start, color_end, label, subtitle):
-    (ARTICLES / filename).write_text(
-        f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" role="img" aria-label="{html.escape(label)}">
-<defs>
-  <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-    <stop offset="0%" stop-color="{color_start}"/>
-    <stop offset="100%" stop-color="{color_end}"/>
-  </linearGradient>
-</defs>
-<rect width="800" height="420" fill="url(#bg)"/>
-<text x="400" y="220" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="48" font-weight="700">{html.escape(label)}</text>
-<text x="400" y="280" text-anchor="middle" fill="#f8fafc" font-family="Arial, sans-serif" font-size="24">{html.escape(subtitle)}</text>
-</svg>
-""",
-        encoding="utf-8",
-    )
-
-
-def write_all_thumbnails():
-    write_default_thumbnail()
-    write_branded_thumbnail("thumb-chatgpt.svg", "#10a37f", "#047857", "ChatGPT", "AI Assistant")
-    write_branded_thumbnail("thumb-gemini.svg", "#4285f4", "#1a73e8", "Gemini", "Google AI")
-    write_branded_thumbnail("thumb-openai.svg", "#111827", "#10a37f", "OpenAI", "AI Research")
-    write_branded_thumbnail("thumb-claude.svg", "#d97757", "#9a3412", "Claude", "Anthropic")
-    write_branded_thumbnail("thumb-microsoft.svg", "#0078d4", "#005a9e", "Microsoft", "Copilot & AI")
 
 
 def page_loc(filename):
@@ -292,8 +220,6 @@ def main():
 
     for page in STATIC_SITEMAP_PAGES:
         sitemap_urls.append(f"<url><loc>{page_loc(page)}</loc></url>")
-
-    write_all_thumbnails()
 
     (ARTICLES / "style.css").write_text("""
 body{font-family:Arial,'Noto Sans KR',sans-serif;margin:0;background:#f5f6f8;color:#222}
