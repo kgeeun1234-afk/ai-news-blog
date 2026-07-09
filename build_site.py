@@ -1,4 +1,5 @@
 from pathlib import Path
+from thumbnail import make_thumbnail
 from datetime import datetime
 import html
 import re
@@ -265,7 +266,10 @@ def main():
         date = get_date(p.name)
         link = p.name
         summary = extract_summary(p)
-        thumb = thumbnail_for_title(title)
+        img_name = p.stem + ".jpg"
+        img_path = Path("articles/images") / img_name
+        make_thumbnail(title, str(img_path))
+        thumb = "images/" + img_name
 
         cards.append(f"""
         <article class="card">
