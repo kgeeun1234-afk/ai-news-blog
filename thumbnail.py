@@ -1,33 +1,56 @@
 from pathlib import Path
-import hashlib
+from PIL import Image, ImageDraw, ImageFont
+import textwrap
+
+OUT_DIR = Path("articles/images")
+OUT_DIR.mkdir(parents=True, exist_ok=True)
+
+WIDTH = 1280
+HEIGHT = 720
+
+COLORS = {
+    "OpenAI": (16, 45, 90),
+    "Google": (20, 80, 180),
+    "Gemini": (80, 40, 170),
+    "Microsoft": (0, 120, 215),
+    "NVIDIA": (30, 120, 30),
+    "default": (30, 60, 140),
+}
 
 
-def thumbnail_name(title: str) -> str:
-    return hashlib.md5(title.encode("utf-8")).hexdigest()[:16] + ".svg"
+def color_from_title(title):
+    for k, v in COLORS.items():
+        if k.lower() in title.lower():
+            return v
+    return COLORS["default"]
 
 
-def write_default_thumbnail(path: Path, title: str):
-    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630">
-<rect width="100%" height="100%" fill="#0f172a"/>
-<text x="60" y="180"
-      font-size="56"
-      fill="white"
-      font-family="Arial,sans-serif">AI NEWS</text>
-<text x="60" y="280"
-      font-size="36"
-      fill="#cbd5e1"
-      font-family="Arial,sans-serif">{title[:50]}</text>
-</svg>"""
-    path.write_text(svg, encoding="utf-8")
+def make_thumbnail(title, outfile):
+    img = Image.new("RGB", (WIDTH, HEIGHT), color_from_title(title))
 
+    d = ImageDraw.Draw(img)
 
-def write_all_thumbnails(articles_dir: Path, articles):
-    image_dir = articles_dir / "images"
-    image_dir.mkdir(exist_ok=True)
+    try:
+        font_big = ImageFont.truetype(
+            "/usr/share/fonts/truetype/nanum/NanumGothicBold.ttf", 72
+        )
+        font_small = ImageFont.truetype(
+            "/usr/share/fonts/truetype/nanum/NanumGothicBold.ttf", 38
+        )
+    except OSError:
+        font_big = ImageFont.load_default()
+        font_small = ImageFont.load_default()
 
-    for article in articles:
-        title = article["title"]
-        filename = thumbnail_name(title)
-        article["thumbnail"] = f"images/{filename}"
-        write_default_thumbnail(image_dir / filename, title)
+    d.text((70, 60), "AI NEWS", fill="white", font=font_small)
 
+    lines = textwrap.wrap(title, width=20)
+
+    y = 180
+
+    for line in lines[:4]:
+        d.text((70, y), line, fill="white", font=font_big)
+        y += 90
+
+    d.text((70, 620), "AI NEWS BLOG", fill=(220, 220, 220), font=font_small)
+
+    img.save(outfile, quality=95)
