@@ -2,6 +2,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 import textwrap
 
+FONT_DIR = Path(__file__).resolve().parent / "fonts"
 OUT_DIR = Path("articles/images")
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -31,12 +32,8 @@ def make_thumbnail(title, outfile):
     d = ImageDraw.Draw(img)
 
     try:
-        font_big = ImageFont.truetype(
-            "/usr/share/fonts/truetype/nanum/NanumGothicBold.ttf", 72
-        )
-        font_small = ImageFont.truetype(
-            "/usr/share/fonts/truetype/nanum/NanumGothicBold.ttf", 38
-        )
+        font_big = ImageFont.truetype(FONT_DIR / "NanumGothic-Bold.ttf", 64)
+        font_small = ImageFont.truetype(FONT_DIR / "NanumGothic-Regular.ttf", 38)
     except OSError:
         font_big = ImageFont.load_default()
         font_small = ImageFont.load_default()
