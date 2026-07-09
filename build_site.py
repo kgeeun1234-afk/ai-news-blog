@@ -194,7 +194,7 @@ def main():
         date = get_date(p.name)
         link = p.name
         summary = extract_summary(p)
-        img_name = p.stem + ".jpg"
+        img_name = f"thumb-{len(cards)+1}.jpg"
         img_path = Path("articles/images") / img_name
         make_thumbnail(title, str(img_path))
         thumb = "images/" + img_name
