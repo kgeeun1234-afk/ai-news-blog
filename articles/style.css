@@ -34,3 +34,37 @@ footer.site-footer{text-align:center;color:#777;padding:30px}
     grid-template-columns: 1fr;
   }
 }
+
+/* 카드 목록 중앙 정렬 */
+main.cards{
+    width:100%;
+    max-width:1000px;
+    margin:30px auto;
+    padding:0 20px;
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:20px;
+}
+
+.card{
+    width:100%;
+    min-width:0;
+}
+
+.card h2{
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+}
+
+.card p{
+    font-size:15px;
+    line-height:1.7;
+}
+
+@media(max-width:700px){
+    main.cards{
+        grid-template-columns:1fr;
+    }
+}
