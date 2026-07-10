@@ -11,3 +11,7 @@ main{max-width:900px;margin:30px auto;padding:0 16px}
 footer.site-footer{text-align:center;color:#777;padding:30px}
 .footer-nav{margin-bottom:8px}
 .footer-nav a{color:#2563eb;text-decoration:none;margin:0 4px}
+.card p {
+  font-size: 15px;
+  line-height: 1.7;
+}
