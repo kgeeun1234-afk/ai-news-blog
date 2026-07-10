@@ -246,7 +246,7 @@ footer.site-footer{text-align:center;color:#777;padding:30px}
   <h1>{SITE_TITLE}</h1>
   <p>매일 업데이트되는 AI 뉴스 요약</p>
 </header>
-<main>
+<main class="cards">
 {''.join(cards) if cards else '<p>아직 등록된 기사가 없습니다.</p>'}
 </main>
 {footer_html()}
