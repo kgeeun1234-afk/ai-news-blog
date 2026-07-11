@@ -177,3 +177,21 @@ footer.site-footer{text-align:center;color:#777;padding:30px}
   border-color:#2563eb;
   box-shadow:0 0 0 3px rgba(37,99,235,.15);
 }
+
+main.cards {
+  width: min(1200px, calc(100% - 40px));
+  margin: 40px auto;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  justify-content: center;
+}
+
+@media (max-width: 700px) {
+  main.cards {
+    width: calc(100% - 24px);
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
