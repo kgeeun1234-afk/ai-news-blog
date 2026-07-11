@@ -222,18 +222,105 @@ def main():
         sitemap_urls.append(f"<url><loc>{page_loc(page)}</loc></url>")
 
     (ARTICLES / "style.css").write_text("""
-body{font-family:Arial,'Noto Sans KR',sans-serif;margin:0;background:#f5f6f8;color:#222}
+*{box-sizing:border-box}
+body{font-family:Arial,'Noto Sans KR',sans-serif;margin:0;background:#f5f6f8;color:#222;line-height:1.6}
 header{background:#111827;color:white;padding:32px 20px;text-align:center}
-main{max-width:900px;margin:30px auto;padding:0 16px}
-.card{background:white;margin:16px 0;padding:22px;border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,.08)}
-.card-thumb{width:100%;max-width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:10px;margin:0 0 14px;display:block}
-.card h2{font-size:22px;margin:8px 0 14px;line-height:1.35}
-.card-summary{color:#4b5563;font-size:15px;line-height:1.5;margin:0 0 14px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.card a{color:#2563eb;text-decoration:none;font-weight:bold}
+header h1{margin:0 0 8px}
+header p{margin:0;color:#d1d5db}
+
+main.cards{
+  max-width:1100px;
+  margin:30px auto;
+  padding:0 16px;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:24px;
+}
+
+.card{
+  background:white;
+  padding:22px;
+  border-radius:14px;
+  box-shadow:0 2px 10px rgba(0,0,0,.08);
+  transition:transform .25s ease,box-shadow .25s ease;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 12px 28px rgba(0,0,0,.13);
+}
+
+.card-thumb{
+  width:100%;
+  aspect-ratio:16/9;
+  object-fit:cover;
+  border-radius:10px;
+  margin:0 0 14px;
+  display:block;
+}
+
+.card h2{
+  font-size:22px;
+  margin:8px 0 14px;
+  line-height:1.35;
+}
+
+.card-summary{
+  color:#4b5563;
+  font-size:15px;
+  line-height:1.6;
+  margin:0 0 14px;
+  display:-webkit-box;
+  -webkit-line-clamp:3;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+
+.card a{
+  color:#2563eb;
+  text-decoration:none;
+  font-weight:bold;
+}
+
 .date{color:#6b7280;font-size:14px}
+
+/* 첫 번째 최신 기사를 대표 기사로 표시 */
+.card:first-child{
+  grid-column:1 / -1;
+  display:grid;
+  grid-template-columns:1.35fr 1fr;
+  gap:28px;
+  align-items:center;
+  padding:26px;
+}
+
+.card:first-child .card-thumb{
+  margin:0;
+  height:100%;
+  min-height:300px;
+}
+
+.card:first-child h2{
+  font-size:30px;
+}
+
 footer.site-footer{text-align:center;color:#777;padding:30px}
 .footer-nav{margin-bottom:8px}
 .footer-nav a{color:#2563eb;text-decoration:none;margin:0 4px}
+
+@media(max-width:760px){
+  main.cards{grid-template-columns:1fr}
+  .card:first-child{
+    display:block;
+    grid-column:auto;
+  }
+  .card:first-child .card-thumb{
+    min-height:0;
+    height:auto;
+    margin-bottom:14px;
+  }
+  .card:first-child h2{font-size:24px}
+}
 """, encoding="utf-8")
 
     index_description = SITE_DESCRIPTION
