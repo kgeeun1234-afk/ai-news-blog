@@ -127,7 +127,23 @@ def render_head(title, description, url, og_type="article", robots="index,follow
 
 
 def extract_body(content):
-    match = re.search(r"<body[^>]*>(.*)</body>", content, re.DOTALL | re.IGNORECASE)
+    match = re.search(r"<body[^>]*>(.*)
+<script>
+const input = document.getElementById('searchInput');
+
+if (input) {
+  input.addEventListener('input', function () {
+    const keyword = this.value.toLowerCase().trim();
+
+    document.querySelectorAll('.card').forEach(card => {
+      const text = card.innerText.toLowerCase();
+      card.style.display = text.includes(keyword) ? '' : 'none';
+    });
+  });
+}
+</script>
+
+</body>", content, re.DOTALL | re.IGNORECASE)
     if not match:
         return content
     body = match.group(1)
@@ -165,6 +181,22 @@ def enhance_html_page(path):
 <body>
 {body}
 {footer_html()}
+
+<script>
+const input = document.getElementById('searchInput');
+
+if (input) {
+  input.addEventListener('input', function () {
+    const keyword = this.value.toLowerCase().trim();
+
+    document.querySelectorAll('.card').forEach(card => {
+      const text = card.innerText.toLowerCase();
+      card.style.display = text.includes(keyword) ? '' : 'none';
+    });
+  });
+}
+</script>
+
 </body>
 </html>
 """,
@@ -333,10 +365,31 @@ footer.site-footer{text-align:center;color:#777;padding:30px}
   <h1>{SITE_TITLE}</h1>
   <p>매일 업데이트되는 AI 뉴스 요약</p>
 </header>
+
+<div class="search-box">
+  <input type="search" id="searchInput" placeholder="AI 뉴스 검색">
+</div>
+
 <main class="cards">
 {''.join(cards) if cards else '<p>아직 등록된 기사가 없습니다.</p>'}
 </main>
 {footer_html()}
+
+<script>
+const input = document.getElementById('searchInput');
+
+if (input) {
+  input.addEventListener('input', function () {
+    const keyword = this.value.toLowerCase().trim();
+
+    document.querySelectorAll('.card').forEach(card => {
+      const text = card.innerText.toLowerCase();
+      card.style.display = text.includes(keyword) ? '' : 'none';
+    });
+  });
+}
+</script>
+
 </body>
 </html>
 """,

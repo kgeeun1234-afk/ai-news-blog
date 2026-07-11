@@ -141,3 +141,17 @@ footer.site-footer{text-align:center;color:#777;padding:30px}
   font-weight:700;
   text-decoration:none;
 }
+
+.search-box {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 0 16px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+}
