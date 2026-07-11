@@ -11,3 +11,34 @@ main{max-width:900px;margin:30px auto;padding:0 16px}
 footer.site-footer{text-align:center;color:#777;padding:30px}
 .footer-nav{margin-bottom:8px}
 .footer-nav a{color:#2563eb;text-decoration:none;margin:0 4px}
+
+/* PC 카드 그리드 */
+main.cards{
+  width:min(1400px, calc(100% - 40px));
+  max-width:1400px;
+  margin:32px auto;
+  padding:0;
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:24px;
+}
+
+main.cards .card{
+  width:100%;
+  margin:0;
+  padding:18px;
+}
+
+main.cards .card-thumb{
+  width:100%;
+  aspect-ratio:16/9;
+  object-fit:cover;
+}
+
+@media (max-width:800px){
+  main.cards{
+    width:min(100% - 24px, 620px);
+    grid-template-columns:1fr;
+    gap:18px;
+  }
+}
