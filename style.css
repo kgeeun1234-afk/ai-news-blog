@@ -195,3 +195,52 @@ main.cards {
     gap: 16px;
   }
 }
+
+/* 카드 높이와 가독성 개선 */
+.cards {
+  align-items: stretch;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 18px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+.card h2 {
+  font-size: 17px;
+  line-height: 1.45;
+  margin: 10px 0;
+}
+
+.card-summary {
+  font-size: 14px;
+  line-height: 1.65;
+  flex-grow: 1;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card .date {
+  font-size: 12px;
+  color: #777;
+}
+
+.card a {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
