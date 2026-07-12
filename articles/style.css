@@ -347,3 +347,75 @@ main.cards{
     gap:16px;
   }
 }
+
+/* 화면 치우침 방지 최종 보정 */
+html,
+body{
+  width:100%;
+  min-height:100%;
+  margin:0;
+  padding:0;
+  overflow-x:hidden;
+}
+
+header{
+  width:100%;
+}
+
+.search-box{
+  width:min(700px,calc(100% - 32px)) !important;
+  margin:28px auto 10px !important;
+}
+
+main.cards{
+  width:min(1200px,calc(100% - 40px)) !important;
+  max-width:1200px !important;
+  margin:32px auto 60px !important;
+  padding:0 !important;
+  display:grid !important;
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  gap:24px !important;
+  position:static !important;
+  float:none !important;
+  transform:none !important;
+  left:auto !important;
+  right:auto !important;
+}
+
+main.cards > .card,
+main.cards > .featured-card,
+.card:first-child{
+  width:auto !important;
+  max-width:none !important;
+  grid-column:auto !important;
+  display:flex !important;
+  grid-template-columns:none !important;
+  position:static !important;
+  transform:none !important;
+}
+
+.card:first-child .card-thumb{
+  width:100% !important;
+  height:auto !important;
+  min-height:0 !important;
+  aspect-ratio:16/9 !important;
+  margin-bottom:14px !important;
+}
+
+.card:first-child h2{
+  font-size:22px !important;
+}
+
+@media(max-width:950px){
+  main.cards{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  }
+}
+
+@media(max-width:650px){
+  main.cards{
+    width:calc(100% - 24px) !important;
+    grid-template-columns:1fr !important;
+    gap:16px !important;
+  }
+}
