@@ -264,3 +264,23 @@ main.cards {
 .card-summary{
     flex:1;
 }
+
+/* 중앙 정렬 최종 보정 */
+main.cards{
+    width:100%;
+    max-width:1200px;
+    margin:32px auto 60px;
+    padding:0 20px;
+    box-sizing:border-box;
+}
+
+main.cards > .featured-card{
+    width:100%;
+}
+
+@media (max-width:768px){
+    main.cards{
+        padding:0 14px;
+        margin-top:20px;
+    }
+}
