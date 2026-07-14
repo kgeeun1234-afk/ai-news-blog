@@ -174,16 +174,16 @@ def enhance_html_page(path):
 <script>
 const input = document.getElementById('searchInput');
 
-if (input) {
-  input.addEventListener('input', function () {
+if (input) {{
+  input.addEventListener('input', function () {{
     const keyword = this.value.toLowerCase().trim();
 
-    document.querySelectorAll('.card').forEach(card => {
+    document.querySelectorAll('.card').forEach(card => {{
       const text = card.innerText.toLowerCase();
       card.style.display = text.includes(keyword) ? '' : 'none';
-    });
-  });
-}
+    }});
+  }});
+}}
 </script>
 
 </body>
@@ -367,16 +367,16 @@ footer.site-footer{text-align:center;color:#777;padding:30px}
 <script>
 const input = document.getElementById('searchInput');
 
-if (input) {
-  input.addEventListener('input', function () {
+if (input) {{
+  input.addEventListener('input', function () {{
     const keyword = this.value.toLowerCase().trim();
 
-    document.querySelectorAll('.card').forEach(card => {
+    document.querySelectorAll('.card').forEach(card => {{
       const text = card.innerText.toLowerCase();
       card.style.display = text.includes(keyword) ? '' : 'none';
-    });
-  });
-}
+    }});
+  }});
+}}
 </script>
 
 </body>

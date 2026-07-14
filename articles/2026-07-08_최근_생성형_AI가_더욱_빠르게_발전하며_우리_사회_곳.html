@@ -31,5 +31,21 @@
   </nav>
   <p>© 2026 AI 뉴스 블로그</p>
 </footer>
+
+<script>
+const input = document.getElementById('searchInput');
+
+if (input) {
+  input.addEventListener('input', function () {
+    const keyword = this.value.toLowerCase().trim();
+
+    document.querySelectorAll('.card').forEach(card => {
+      const text = card.innerText.toLowerCase();
+      card.style.display = text.includes(keyword) ? '' : 'none';
+    });
+  });
+}
+</script>
+
 </body>
 </html>

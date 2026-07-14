@@ -22,14 +22,19 @@
   <h1>AI 뉴스 블로그</h1>
   <p>매일 업데이트되는 AI 뉴스 요약</p>
 </header>
+
+<div class="search-box">
+  <input type="search" id="searchInput" placeholder="AI 뉴스 검색">
+</div>
+
 <main class="cards">
 
         <article class="card">
           <img class="card-thumb" src="images/thumb-1.jpg" alt="AI 뉴스 썸네일">
-          <div class="date">2026-07-11</div>
-          <h2>지난 몇 년간 인공지능(AI)은 비약적인 발전을 이루며</h2>
-          <p class="card-summary">지난 몇 년간 인공지능(AI)은 비약적인 발전을 이루며 다양한 산업과 우리 일상에 깊숙이 자리 잡았습니다. 그중에서도 생성형 AI는 텍스트, 이미지, 음성 등 새로운 콘텐츠를 자동으로 만들며 혁신의 중심에 섰죠. 최근 발표된 여러 뉴스를 살펴보면 생성형 AI가 향후 우리 사회와 경제에 얼마나 큰 영향을 미칠지 가늠할 수 있습니다. 이번 글에서는 생성형 AI가 가져올 산업 변화와 교육 현장, 금융 투자, 그리고 스마트 기기 분야까지 폭넓은 영향력을 조망해보겠습니다.</p>
-          <a href="2026-07-11_지난_몇_년간_인공지능(AI)은_비약적인_발전을_이루며.html">기사 읽기 →</a>
+          <div class="date">2026-07-14</div>
+          <h2>최근 생성형 AI(Generative AI)가 공공기관</h2>
+          <p class="card-summary">최근 생성형 AI(Generative AI)가 공공기관부터 민간기업, 지역 사회에 이르기까지 다양한 분야에서 빠르게 도입되고 있습니다. 한국의 여러 지자체와 기업들이 생성형 AI 활용 능력 향상을 위해 교육 프로그램을 제공하고, 투자전략 검증 도구를 출시하는 등 활발한 움직임을 보여주고 있는데요. 이번 글에서는 화성시와 완주군의 AI 행정 교육, 두나무·업비트의 AI 투자 도구, 그리고 대한건축사협회의 AI 역량 성장 촉진 방향을 중심으로 자세히 살펴보겠습니다.</p>
+          <a href="2026-07-14_최근_생성형_AI(Generative_AI)가_공공기관.html">기사 읽기 →</a>
         </article>
         
         <article class="card">
@@ -66,6 +71,14 @@
         
         <article class="card">
           <img class="card-thumb" src="images/thumb-6.jpg" alt="AI 뉴스 썸네일">
+          <div class="date">2026-07-11</div>
+          <h2>지난 몇 년간 인공지능(AI)은 비약적인 발전을 이루며</h2>
+          <p class="card-summary">지난 몇 년간 인공지능(AI)은 비약적인 발전을 이루며 다양한 산업과 우리 일상에 깊숙이 자리 잡았습니다. 그중에서도 생성형 AI는 텍스트, 이미지, 음성 등 새로운 콘텐츠를 자동으로 만들며 혁신의 중심에 섰죠. 최근 발표된 여러 뉴스를 살펴보면 생성형 AI가 향후 우리 사회와 경제에 얼마나 큰 영향을 미칠지 가늠할 수 있습니다. 이번 글에서는 생성형 AI가 가져올 산업 변화와 교육 현장, 금융 투자, 그리고 스마트 기기 분야까지 폭넓은 영향력을 조망해보겠습니다.</p>
+          <a href="2026-07-11_지난_몇_년간_인공지능(AI)은_비약적인_발전을_이루며.html">기사 읽기 →</a>
+        </article>
+        
+        <article class="card">
+          <img class="card-thumb" src="images/thumb-7.jpg" alt="AI 뉴스 썸네일">
           <div class="date">2026-07-08</div>
           <h2>최근 생성형 AI 관련 소식이 산업과 교육, 사회 전반</h2>
           <p class="card-summary">최근 생성형 AI 관련 소식이 산업과 교육, 사회 전반에서 뜨겁게 이슈가 되고 있습니다. 단순한 기술 호기심을 넘어 실제 활용과 적용이 본격화하는 모습인데요. 대학에서는 관련 교육과 비교과 프로그램을 확대하며 AI 인재를 양성하는 움직임이 활발하고, 기업들 또한 AI 대응 보안 솔루션과 혁신적 비즈니스 모델을 잇따라 선보이고 있습니다. 더 나아가 사회적 가치 실현을 위한 생성형 AI 기반 프로젝트까지 등장해 AI가 우리 삶 깊숙이 스며들고 있음을 확인할 수 있습니다. 오늘은 최근 5가지 주요 뉴스를 바탕으로 생성형 AI가 어떻게 다양한 분야에서 새로운 패러다임을 만들어가고 있는지 살펴보겠습니다.</p>
@@ -83,5 +96,21 @@
   </nav>
   <p>© 2026 AI 뉴스 블로그</p>
 </footer>
+
+<script>
+const input = document.getElementById('searchInput');
+
+if (input) {
+  input.addEventListener('input', function () {
+    const keyword = this.value.toLowerCase().trim();
+
+    document.querySelectorAll('.card').forEach(card => {
+      const text = card.innerText.toLowerCase();
+      card.style.display = text.includes(keyword) ? '' : 'none';
+    });
+  });
+}
+</script>
+
 </body>
 </html>
