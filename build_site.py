@@ -127,25 +127,14 @@ def render_head(title, description, url, og_type="article", robots="index,follow
 
 
 def extract_body(content):
-    match = re.search(r"<body[^>]*>(.*)
-<script>
-const input = document.getElementById('searchInput');
-
-if (input) {
-  input.addEventListener('input', function () {
-    const keyword = this.value.toLowerCase().trim();
-
-    document.querySelectorAll('.card').forEach(card => {
-      const text = card.innerText.toLowerCase();
-      card.style.display = text.includes(keyword) ? '' : 'none';
-    });
-  });
-}
-</script>
-
-</body>", content, re.DOTALL | re.IGNORECASE)
+    match = re.search(
+        r"<body[^>]*>(.*?)</body>",
+        content,
+        re.DOTALL | re.IGNORECASE,
+    )
     if not match:
         return content
+
     body = match.group(1)
     body = re.sub(
         r"<footer[^>]*>.*?</footer>",
