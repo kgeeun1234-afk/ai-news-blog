@@ -1,0 +1,4 @@
+Pillow
+feedparser
+python-dotenv
+openai

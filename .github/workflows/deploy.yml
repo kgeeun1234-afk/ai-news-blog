@@ -1,9 +1,11 @@
-name: Deploy static site to GitHub Pages
+name: Build and deploy AI news blog
 
 on:
   push:
     branches:
       - main
+
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -11,36 +13,53 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: github-pages
   cancel-in-progress: true
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
+  build-and-deploy:
     runs-on: ubuntu-latest
 
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Python
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: pip
 
-      - name: Build site
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Check Python syntax
         run: |
-          pip install Pillow
-          python build_site.py
+          python -m py_compile build_site.py
+          python -m py_compile thumbnail.py
 
-      - name: Setup Pages
+      - name: Build static site
+        run: python build_site.py
+
+      - name: Verify generated files
+        run: |
+          test -f articles/index.html
+          test -f articles/sitemap.xml
+          test -f articles/robots.txt
+          test -f articles/rss.xml
+
+      - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload artifact
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: articles
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4

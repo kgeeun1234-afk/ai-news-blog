@@ -2,6 +2,11 @@
 .venv/
 __pycache__/
 *.pyc
+*.pyo
 nano.*.save
-build_site.py.bak
+*.bak
 cron.log
+client_secret.json
+youtube_token.json
+openai_key.txt
+.DS_Store
