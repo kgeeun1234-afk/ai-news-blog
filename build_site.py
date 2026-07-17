@@ -1,4 +1,5 @@
 from pathlib import Path
+import shutil
 from thumbnail import make_thumbnail
 from datetime import datetime
 import html
@@ -414,6 +415,8 @@ if (input) {{
             enhance_html_page(path)
 
     write_robots_txt()
+
+    shutil.copy2(ARTICLES / "index.html", BASE / "index.html")
 
     print("사이트 생성 완료: articles/index.html, sitemap.xml, rss.xml, style.css, robots.txt")
     print(f"기사 {len(article_files)}건, 정적 페이지 메타/푸터 갱신 완료")
