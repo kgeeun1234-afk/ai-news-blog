@@ -266,7 +266,7 @@ def main():
           <div class="date">{html.escape(date)}</div>
           <h2>{html.escape(title)}</h2>
           <p class="card-summary">{html.escape(summary)}</p>
-          <a href="{html.escape(link)}">기사 읽기 →</a>
+          <a href="articles/{html.escape(link)}">기사 읽기 →</a>
         </article>
         """)
 
