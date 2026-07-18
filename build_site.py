@@ -41,6 +41,22 @@ def get_date(filename):
     return m.group(1) if m else ""
 
 
+def make_slug(filename):
+    stem = Path(filename).stem
+    date = get_date(filename)
+
+    title = re.sub(r"^\d{4}-\d{2}-\d{2}_?", "", stem)
+    title = title.lower()
+    title = re.sub(r"[^a-z0-9가-힣]+", "-", title)
+    title = re.sub(r"-+", "-", title).strip("-")
+    title = title[:60].rstrip("-")
+
+    if not title:
+        title = "article"
+
+    return f"{date}-{title}.html" if date else f"{title}.html"
+
+
 def extract_summary(article_path):
     md_path = article_path.with_suffix(".md")
     if md_path.exists():
@@ -201,6 +217,29 @@ def is_article(filename):
 def main():
     ARTICLES.mkdir(exist_ok=True)
 
+    # 기존 기사 HTML/MD 파일명을 URL-safe slug 형식으로 변경
+    for old_html in list(ARTICLES.glob("*.html")):
+        if not is_article(old_html.name):
+            continue
+
+        new_name = make_slug(old_html.name)
+        new_html = old_html.with_name(new_name)
+
+        if old_html != new_html:
+            if new_html.exists():
+                print(f"파일명 변경 생략(이미 존재): {new_html.name}")
+                continue
+
+            old_md = old_html.with_suffix(".md")
+            new_md = new_html.with_suffix(".md")
+
+            old_html.rename(new_html)
+
+            if old_md.exists() and not new_md.exists():
+                old_md.rename(new_md)
+
+            print(f"파일명 변경: {old_html.name} -> {new_html.name}")
+
     article_files = sorted(
         [p for p in ARTICLES.glob("*.html") if is_article(p.name)],
         key=lambda p: p.stat().st_mtime,
@@ -214,7 +253,7 @@ def main():
     for p in article_files:
         title = clean_title(p.name)
         date = get_date(p.name)
-        link = p.name
+        link = make_slug(p.name)
         summary = extract_summary(p)
         img_name = f"thumb-{len(cards)+1}.jpg"
         img_path = Path("articles/images") / img_name
