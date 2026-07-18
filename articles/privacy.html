@@ -235,6 +235,23 @@ if (input) {
 }
 </script>
 
+
+
+<script>
+const input = document.getElementById('searchInput');
+
+if (input) {
+  input.addEventListener('input', function () {
+    const keyword = this.value.toLowerCase().trim();
+
+    document.querySelectorAll('.card').forEach(card => {
+      const text = card.innerText.toLowerCase();
+      card.style.display = text.includes(keyword) ? '' : 'none';
+    });
+  });
+}
+</script>
+
 <footer class="site-footer">
   <nav class="footer-nav">
     <a href="index.html">Home</a> |
